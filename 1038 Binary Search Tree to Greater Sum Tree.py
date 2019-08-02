@@ -7,8 +7,7 @@ class Solution(object):
         """
         self.convert_tree(root, 0)
         return root
-        
-        
+              
     def convert_tree(self, root, ans):
         if not(root):
             return ans
