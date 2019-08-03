@@ -1,19 +1,17 @@
-
 class Solution(object):
     def bstToGst(self, root):
         """
         :type root: TreeNode
         :rtype: TreeNode
         """
-        self.convert_tree(root, 0)
+        self.val = 0
+        self.convert_tree(root)
         return root
-              
-    def convert_tree(self, root, ans):
-        if not(root):
-            return ans
+        
+    def convert_tree(self, root):
         if root.right:
-            self.convert_tree(root.right, ans)
-        ans += root.val
-        print(root.val, ans)
+            self.convert_tree(root.right)
+        self.val += root.val
+        root.val = self.val
         if root.left:
-            self.convert_tree(root.left, ans)
+            self.convert_tree(root.left)
