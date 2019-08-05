@@ -12,7 +12,6 @@ class Solution(object):
     def insert_node(self, node):
         if not(node):
             return
-        print(node.val)
         if self.val > node.val:
             if node.right:
                 self.insert_node(node.right)
