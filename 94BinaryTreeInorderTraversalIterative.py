@@ -21,13 +21,16 @@ class Solution(object):
             return None
         while to_visit:
             current_node = to_visit.pop()
+            # If there is a left child that we haven't looked at, save this node for later and process the left child.
             if current_node.left and (hash(current_node.left) not in processed_dict):
                 to_visit.append(current_node)
                 to_visit.append(current_node.left)
                 continue
+            # If we haven't processed this node yet, add it to the answer.
             if hash(current_node) not in processed_dict:
                 ans.append(current_node.val)
                 processed_dict[hash(current_node)] = 1
+            # Process the right child.
             if current_node.right:
                 to_visit.append(current_node.right)
         return ans
