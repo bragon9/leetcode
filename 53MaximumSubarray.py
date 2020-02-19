@@ -4,17 +4,11 @@ class Solution:
         sub_total = 0
         # Loop through keeping a running total
         for index, value in enumerate(nums):
-            if value > 0:
-                # If the value alone is higher than the running total, reset running total to value
-                if value > value + sub_total:
-                    sub_total = value
-                else:
-                    sub_total += value
-            # Always keep running total of negative numbers.  
+            # If the value alone is higher than the running total, reset running total to value
+            if value > value + sub_total:
+                sub_total = value
             else:
                 sub_total += value
-                # Covers case where all values are negative.  
-                max_total = max(value, max_total)
             max_total = max(max_total, sub_total)
         return max_total
         
