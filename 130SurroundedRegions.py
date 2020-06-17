@@ -10,8 +10,10 @@ class Solution:
         visited = set()
         for y in range(len(board)):
             for x in range(len(board[0])):
+                if (x, y) in visited:
+                    continue
                 value = board[y][x]
-                if (x, y) not in visited and value == 'O':
+                if value == 'O':
                     self.capture(x, y, board, visited)
                     
     def capture(self, x, y, board, visited):
@@ -38,6 +40,8 @@ class Solution:
             for x1, y1 in neighbors:
                 if board[y1][x1] == 'O':
                     to_visit.append((x1, y1))
+                else:
+                    visited.add((x, y))
         # If the whole area is valid, capture it.
         if valid:
             for x_cap, y_cap in area:
