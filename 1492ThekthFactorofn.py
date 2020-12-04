@@ -14,5 +14,8 @@ class Solution:
             if ptr == k:
                 return ans
             ans += 1
+            # No need to check numbers between n//2 and n
+            if ans >= n//2:
+                ans == n
             ptr += 1
         return -1
