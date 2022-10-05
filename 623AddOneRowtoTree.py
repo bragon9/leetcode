@@ -1,36 +1,39 @@
 class Solution:
-    def addOneRow(self, root: TreeNode, v: int, d: int) -> TreeNode:
-        if not(root):
-            return
-        if d == 1:
-            return TreeNode(v, root)
-        to_visit = [[root]]
-        depth = 1
-        while to_visit:
-            lvl = to_visit.pop()
-            depth += 1
-            next_lvl = []
-            if depth == d:
-                self.add_depth(lvl, v)
-                return root
-            else:
-                for node in lvl:
-                    if node.left:
-                        next_lvl.append(node.left)
-                    if node.right:
-                        next_lvl.append(node.right)
-            if next_lvl:
-                to_visit.append(next_lvl)
+    def addOneRow(self, root: Optional[TreeNode], val: int, depth: int) -> Optional[TreeNode]:
         
-    def add_depth(self, level, value):
-        for node in level:
-            if node.left:
-                hold = node.left
-                node.left = TreeNode(value, hold)
-            else:
-                node.left = TreeNode(value)
-            if node.right:
-                hold = node.right
-                node.right = TreeNode(value, None, hold)
-            else:
-                node.right = TreeNode(value)
+        def traverse_to_depth(node, depth):
+            curr_lvl = [node]
+            next_lvl = []
+            for _ in range(depth - 2):
+                for curr_node in curr_lvl:
+                    if curr_node.left:
+                        next_lvl.append(curr_node.left)
+                    if curr_node.right:
+                        next_lvl.append(curr_node.right)
+                        
+                curr_lvl, next_lvl = next_lvl, []
+            
+            return curr_lvl
+        
+        def add_child(node, filler_node):
+            hold_left = node.left
+            hold_right = node.right
+            
+            node.left = deepcopy(filler_node)
+            node.right = deepcopy(filler_node)
+            
+            node.left.left = hold_left
+            node.right.right = hold_right
+        
+        filler_node = TreeNode(val)
+        
+        if depth == 1:
+            filler_node.left = root
+            return filler_node
+        
+        parent_nodes = traverse_to_depth(root, depth)
+        
+        for parent in parent_nodes:
+            add_child(parent, filler_node)
+        
+        return root
