@@ -5,10 +5,8 @@ class Solution:
                 return 
             
             if depth == 1:
-                dummyLeft = TreeNode(val, node.left)
-                dummyRight = TreeNode(val, None, node.right)
-                node.left = dummyLeft
-                node.right = dummyRight
+                node.left = TreeNode(val, node.left)
+                node.right = TreeNode(val, None, node.right)
                 return
             
             traverseAddRow(node.left, val, depth - 1)
